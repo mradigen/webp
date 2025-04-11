@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>23BCE5047</title>
+</head>
+
+<body>
+	<div class="container">
+		<table border=1>
+			<tr>
+				<td colspan=2><b>BMI Calculator</b> <select id="gender">
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan=2><b>Enter Your Weight:</b><br>(in pounds)<input type="number" id="weight"></td>
+			</tr>
+			<tr>
+				<td colspan=2><b>Enter Your Height:</b>
+					<br>(feet)
+					<input type="number" id="feet" placeholder="Feet">
+					<br>(inches)
+					<input type="number" id="inches" placeholder="Inches">
+
+				</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<center>
+						<button onclick="calculateBMI()">Calculate</button>
+					</center>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>YOUR BMI</b>
+				</td>
+				<td>
+					<input type="text" id="bmi">
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<script>
+		function calculateBMI() {
+			let weight = parseFloat(document.getElementById('weight').value);
+			let feet = parseFloat(document.getElementById('feet').value);
+			let inches = parseFloat(document.getElementById('inches').value);
+			let gender = document.getElementById('gender').value;
+
+			if (isNaN(weight) || isNaN(feet) || isNaN(inches)) {
+				alert("Please enter valid values.");
+				return;
+			}
+
+			let heightInInches = (feet * 12) + inches;
+			let bmi = (703 * weight) / (heightInInches * heightInInches);
+			let category = "";
+
+			if (gender === "male") {
+				if (bmi < 17.5) category = "Anorexia";
+				else if (bmi < 20.7) category = "Underweight";
+				else if (bmi < 26.4) category = "Ideal Range";
+				else if (bmi < 27.8) category = "Marginally Overweight";
+				else if (bmi < 31.1) category = "Overweight";
+				else category = "Very Overweight or Obese";
+			} else {
+				if (bmi < 17.5) category = "Anorexia";
+				else if (bmi < 19.1) category = "Underweight";
+				else if (bmi < 25.8) category = "Ideal Range";
+				else if (bmi < 27.3) category = "Marginally Overweight";
+				else if (bmi < 32.3) category = "Overweight";
+				else category = "Very Overweight or Obese";
+			}
+
+			// alert(`Your BMI is ${bmi.toFixed(2)}. Category: ${category}`);
+			document.querySelector("#bmi").value = `Your BMI is ${bmi.toFixed(2)}. Category: ${category}`;
+		}
+	</script>
+</body>
+
+</html>

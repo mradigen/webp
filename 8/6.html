@@ -1,0 +1,15 @@
+<h1>TICKET BOOTH</h1>
+<p>Adults ($10 each)</p>
+<input type="number" value="" id="adult">
+<p>Children ($5 each)</p>
+<input type="number" value="" id="child">
+<button onclick="calculate();">Total</button>
+<p id="total"></p>
+<script>
+	function calculate() {
+		let adult = (document.querySelector("#adult").value * 1) * 10;
+		let child = (document.querySelector("#child").value * 1) * 5;
+		console.log(adult, child);
+		document.querySelector("#total").innerText = adult + child;
+	}
+</script>

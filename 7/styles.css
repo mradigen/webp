@@ -1,0 +1,64 @@
+h1 {
+	animation: anim 1s infinite;
+}
+
+@keyframes anim {
+	0% {
+		color: red;
+	}
+
+	25% {
+		color: yellow;
+	}
+
+	50% {
+		color: blue;
+	}
+
+	75% {
+		color: green;
+	}
+
+	100% {
+		color: red;
+	}
+}
+
+.descriptions {
+	column-count: 3;
+	column-gap: 30px;
+	line-height: 30pt;
+	text-align: justify;
+}
+
+body {
+	background: url('background.jpg') no-repeat center center fixed;
+	background-size: cover;
+}
+
+svg {
+	position: absolute;
+	animation: play-with-ball 3s infinite ease-in-out;
+}
+
+@keyframes play-with-ball {
+	0% {
+		transform: translate(0, 0) rotate(0deg) skew(0deg);
+	}
+
+	25% {
+		transform: translate(100px, -50px) rotate(45deg) skew(5deg);
+	}
+
+	50% {
+		transform: translate(150px, 20px) rotate(90deg) skew(-5deg);
+	}
+
+	75% {
+		transform: translate(200px, -30px) rotate(135deg) skew(10deg);
+	}
+
+	100% {
+		transform: translate(0, 0) rotate(180deg) skew(0deg);
+	}
+}

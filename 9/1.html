@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+	<head>
+		<title>23BCE5047</title>
+		<style></style>
+	</head>
+	<body>
+		<h2>Temperatures</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Day</th>
+					<th>Temperature (°F)</th>
+					<th>Category</th>
+				</tr>
+			</thead>
+			<tbody id="temp"></tbody>
+		</table>
+		<p id="summary"></p>
+
+		<script>
+			const temperatures = [
+				55, 62, 68, 74, 59, 45, 41, 58, 60, 67, 65, 78, 82, 88, 91, 92,
+				90, 93, 87, 80, 78, 79, 72, 68, 61, 59, 55, 65,
+			]
+			let hotDays = 0,
+				pleasantDays = 0,
+				coldDays = 0
+			const tableBody = document.getElementById('temp')
+
+			temperatures.forEach((temp, index) => {
+				let category = ''
+				if (temp >= 85) {
+					category = 'Hot'
+					hotDays++
+				} else if (temp >= 60) {
+					category = 'Pleasant'
+					pleasantDays++
+				} else {
+					category = 'Cold'
+					coldDays++
+				}
+
+				let row = `<tr><td>${index + 1}</td><td>${temp}</td><td>${category}</td></tr>`
+				tableBody.innerHTML += row
+			})
+
+			document.getElementById('summary').innerHTML =
+				`Hot Days: ${hotDays} | Pleasant Days: ${pleasantDays} | Cold Days: ${coldDays}`
+		</script>
+	</body>
+</html>

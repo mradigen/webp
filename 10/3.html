@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>23BCE5047</title>
+	<style>
+		input {
+			border-radius: 20px;
+		}
+	</style>
+</head>
+
+<body style="background-color: lightgreen;">
+	<h1 style="width: 100%; text-align: center;">Grocery Form</h1>
+	<form method="GET" action="3_b.html">
+		<label>Customer Name</label>
+		<input type="text" id="first" name="first">
+		<input type="text" id="last" name="last">
+		<br>
+		<br>
+		<label>Phone Number</label>
+		<input type="text" id="code" name="code">
+		<input type="text" id="phone" name="phone">
+		<br>
+		<br>
+		<label>Email</label>
+		<input type="email" id="email" name="email">
+
+		<h2>Products</h2>
+		<table>
+			<tr id="apple">
+				<td>
+					<input type="checkbox" class="c" name="appleC">
+				</td>
+				<td>
+					Apple
+				</td>
+				<td>
+					$ 10
+				</td>
+				<td>
+					<input type="number" id="q" name="appleQ">
+				</td>
+				<td>
+					kg
+				</td>
+			</tr>
+			<tr id="banana">
+				<td>
+					<input type="checkbox" class="c" name="bananaC">
+				</td>
+				<td>
+					Banana
+				</td>
+				<td>
+					$ 5
+				</td>
+				<td>
+					<input type="number" id="q" name="bananaQ">
+				</td>
+				<td>
+					kg
+				</td>
+			</tr>
+			<tr id="avocado">
+				<td>
+					<input type="checkbox" class="c" name="avocadoC">
+				</td>
+				<td>
+					Avocado
+				</td>
+				<td>
+					$ 7
+				</td>
+				<td>
+					<input type="number" id="q" name="avocadoQ">
+				</td>
+				<td>
+					kg
+				</td>
+			</tr>
+		</table>
+
+		<input type="submit" value="Submit">
+	</form>
+</body>
+
+</html>

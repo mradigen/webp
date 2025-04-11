@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>23BCE5047</title>
+</head>
+
+<body>
+	<h2>Data Analysis</h2>
+	<button onclick="sortPatients()">Sort by Age Descending</button>
+	<button onclick="checkPatient()">Check p-id</button>
+	<button onclick="filterByAge()">Filter by age range</button>
+
+	<p id="output"></p>
+
+	<script>
+		let patients = [
+			{id: 1, name: "Alen", age: 39},
+			{id: 2, name: "Deena", age: 47},
+			{id: 3, name: "Diana", age: 21},
+			{id: 4, name: "Jack", age: 54},
+			{id: 5, name: "Jain", age: 23},
+			{id: 6, name: "Kelvin", age: 61},
+			{id: 7, name: "Louis", age: 69},
+			{id: 8, name: "Rex", age: 49}
+		];
+
+		function displayPatients(data) {
+			document.getElementById("output").innerHTML = data.map(p => `P-Id: ${p.id}, Name: ${p.name}, Age: ${p.age}`).join('<br>');
+		}
+
+		function sortPatients() {
+			let sortedPatients = [...patients].sort((a, b) => b.age - a.age);
+			displayPatients(sortedPatients);
+		}
+
+		function checkPatient() {
+			let id = parseInt(prompt("Enter P-Id to check:"));
+			let exists = patients.some(p => p.id === id);
+			alert(exists ? `P-Id ${id} is present in the list.` : `P-Id ${id} is not found.`);
+		}
+
+		function filterByAge() {
+			let minAge = parseInt(prompt("Enter minimum age:"));
+			let maxAge = parseInt(prompt("Enter maximum age:"));
+			let filtered = patients.filter(p => p.age >= minAge && p.age <= maxAge);
+			displayPatients(filtered);
+		}
+	</script>
+</body>
+
+</html>

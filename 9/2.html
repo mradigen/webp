@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>23BCE5047</title>
+</head>
+
+<body>
+	<h2>Airline Reservation System</h2>
+	<button onclick="bookSeat(1)">Book First-Class</button>
+	<button onclick="bookSeat(2)">Book Economy</button>
+	<table>
+		<thead>
+			<tr>
+				<th>Seat Number</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody id="table"></tbody>
+	</table>
+	<p id="pass"></p>
+
+	<script>
+		const seats = new Array(10).fill(0);
+		const table = document.getElementById("table");
+
+		function updateTable() {
+			table.innerHTML = "";
+			seats.forEach((seat, index) => {
+				let status = seat === 0 ? "Available" : "Booked";
+				let row = `<tr><td>${index + 1}</td><td>${status}</td></tr>`;
+				table.innerHTML += row;
+			});
+		}
+
+		function bookSeat(section) {
+			let start = section === 1 ? 0 : 5;
+			let end = section === 1 ? 5 : 10;
+			let seatAssigned = -1;
+
+			for (let i = start; i < end; i++) {
+				if (seats[i] === 0) {
+					seats[i] = 1;
+					seatAssigned = i + 1;
+					break;
+				}
+			}
+
+			if (seatAssigned === -1) {
+				let otherSection = section === 1 ? "economy" : "first-class";
+				let acceptOther = confirm(`The selected section is full. Would you like to book in ${otherSection} instead?`);
+				if (acceptOther) {
+					return bookSeat(section === 1 ? 2 : 1);
+				} else {
+					alert("Next flight leaves in 3 hours.");
+					return;
+				}
+			}
+
+			let passengerName = prompt("Enter your name:");
+			document.getElementById("pass").innerHTML =
+				`Boarding Pass: Name - ${passengerName}, Seat - ${seatAssigned}, Class - ${section === 1 ? "First-Class" : "Economy"}`;
+			updateTable();
+		}
+
+		updateTable();
+	</script>
+</body>
+
+</html>
