@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>23BCE5047</title>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+			.chart-container {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 20px;
+				margin-top: 20px;
+			}
+			.chart {
+				border: 1px solid #ddd;
+				border-radius: 5px;
+				padding: 10px;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			}
+			h1,
+			h2 {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Dynamic Charts with Plotly.js</h1>
+
+		<div class="chart-container">
+			<div class="chart">
+				<h2>Bar Chart</h2>
+				<div id="barChart"></div>
+			</div>
+			<div class="chart">
+				<h2>Line Chart</h2>
+				<div id="lineChart"></div>
+			</div>
+			<div class="chart">
+				<h2>Pie Chart</h2>
+				<div id="pieChart"></div>
+			</div>
+			<div class="chart">
+				<h2>Donut Chart</h2>
+				<div id="donutChart"></div>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>

@@ -1,0 +1,505 @@
+<html>
+	<body>
+		<script>
+			window.onload = function () {
+				createValidationForm()
+				startTimer()
+			}
+
+			function createValidationForm() {
+				const formContainer = document.createElement('div')
+				formContainer.style.border = '1px solid black'
+				formContainer.style.padding = '20px'
+				formContainer.style.maxWidth = '800px'
+				formContainer.style.position = 'relative'
+
+				const header = document.createElement('h1')
+				header.textContent = 'Test JavaScript Form Validation'
+				formContainer.appendChild(header)
+
+				const timerDisplay = document.createElement('div')
+				timerDisplay.id = 'timer'
+				timerDisplay.style.position = 'absolute'
+				timerDisplay.style.top = '20px'
+				timerDisplay.style.right = '20px'
+				timerDisplay.style.border = '1px solid black'
+				timerDisplay.style.padding = '5px'
+				formContainer.appendChild(timerDisplay)
+
+				const form = document.createElement('form')
+				form.id = 'validationForm'
+				form.noValidate = true
+
+				createFormField(form, 'Name', 'text', 'name', true)
+				createFormField(form, 'Address', 'textarea', 'address', false)
+				createFormField(form, 'Zip Code', 'text', 'zipcode', true)
+
+				const countryLabel = document.createElement('label')
+				countryLabel.textContent = 'Country'
+				countryLabel.appendChild(createRequiredMark())
+				form.appendChild(countryLabel)
+
+				const countrySelect = document.createElement('select')
+				countrySelect.name = 'country'
+				countrySelect.id = 'country'
+				countrySelect.required = true
+
+				const defaultOption = document.createElement('option')
+				defaultOption.value = ''
+				defaultOption.textContent = 'Please select...'
+				countrySelect.appendChild(defaultOption)
+
+				const countries = [
+					'USA',
+					'Canada',
+					'UK',
+					'Australia',
+					'India',
+					'Japan',
+				]
+				countries.forEach((country) => {
+					const option = document.createElement('option')
+					option.value = country
+					option.textContent = country
+					countrySelect.appendChild(option)
+				})
+
+				form.appendChild(countrySelect)
+				form.appendChild(document.createElement('br'))
+				form.appendChild(document.createElement('br'))
+
+				const genderLabel = document.createElement('label')
+				genderLabel.textContent = 'Gender'
+				genderLabel.appendChild(createRequiredMark())
+				form.appendChild(genderLabel)
+				form.appendChild(document.createElement('br'))
+
+				const genderContainer = document.createElement('div')
+				genderContainer.style.display = 'flex'
+				genderContainer.style.gap = '10px'
+
+				const genderMale = createRadioButton('gender', 'Male', 'male')
+				const genderFemale = createRadioButton(
+					'gender',
+					'Female',
+					'female',
+				)
+
+				genderContainer.appendChild(genderMale)
+				genderContainer.appendChild(document.createTextNode(' Male '))
+				genderContainer.appendChild(genderFemale)
+				genderContainer.appendChild(document.createTextNode(' Female '))
+
+				form.appendChild(genderContainer)
+				form.appendChild(document.createElement('br'))
+				form.appendChild(document.createElement('br'))
+
+				const preferencesLabel = document.createElement('label')
+				preferencesLabel.textContent = 'Preferences'
+				preferencesLabel.appendChild(createRequiredMark())
+				form.appendChild(preferencesLabel)
+				form.appendChild(document.createElement('br'))
+
+				const preferencesContainer = document.createElement('div')
+				preferencesContainer.style.display = 'flex'
+				preferencesContainer.style.gap = '10px'
+
+				const redCheckbox = createCheckbox('preferences', 'Red', 'red')
+				const greenCheckbox = createCheckbox(
+					'preferences',
+					'Green',
+					'green',
+				)
+				const blueCheckbox = createCheckbox(
+					'preferences',
+					'Blue',
+					'blue',
+				)
+
+				preferencesContainer.appendChild(redCheckbox)
+				preferencesContainer.appendChild(
+					document.createTextNode(' Red '),
+				)
+				preferencesContainer.appendChild(greenCheckbox)
+				preferencesContainer.appendChild(
+					document.createTextNode(' Green '),
+				)
+				preferencesContainer.appendChild(blueCheckbox)
+				preferencesContainer.appendChild(
+					document.createTextNode(' Blue '),
+				)
+
+				form.appendChild(preferencesContainer)
+				form.appendChild(document.createElement('br'))
+				form.appendChild(document.createElement('br'))
+
+				createFormField(form, 'Phone', 'text', 'phone', true)
+				createFormField(form, 'Email', 'email', 'email', true)
+				createFormField(
+					form,
+					'Password (6-8 characters)',
+					'password',
+					'password',
+					true,
+				)
+				createFormField(
+					form,
+					'Verify password',
+					'password',
+					'verifyPassword',
+					true,
+				)
+
+				const panContainer = document.createElement('div')
+				panContainer.style.position = 'absolute'
+				panContainer.style.right = '20px'
+				panContainer.style.top = '200px'
+
+				const panLabel = document.createElement('label')
+				panLabel.textContent = 'Pan No: '
+				panLabel.htmlFor = 'pan'
+
+				const panInput = document.createElement('input')
+				panInput.type = 'text'
+				panInput.id = 'pan'
+				panInput.name = 'pan'
+
+				panContainer.appendChild(panLabel)
+				panContainer.appendChild(panInput)
+				formContainer.appendChild(panContainer)
+
+				const buttonsDiv = document.createElement('div')
+				buttonsDiv.style.marginTop = '20px'
+
+				const submitButton = document.createElement('button')
+				submitButton.type = 'submit'
+				submitButton.textContent = 'SEND'
+				submitButton.style.marginRight = '10px'
+				submitButton.style.padding = '5px 20px'
+
+				const resetButton = document.createElement('button')
+				resetButton.type = 'reset'
+				resetButton.textContent = 'CLEAR'
+				resetButton.style.padding = '5px 20px'
+
+				buttonsDiv.appendChild(submitButton)
+				buttonsDiv.appendChild(resetButton)
+				form.appendChild(buttonsDiv)
+
+				formContainer.appendChild(form)
+
+				document.body.appendChild(formContainer)
+
+				form.addEventListener('submit', validateForm)
+			}
+
+			function createRequiredMark() {
+				const requiredMark = document.createElement('span')
+				requiredMark.textContent = '*'
+				requiredMark.style.color = 'red'
+				return requiredMark
+			}
+
+			function createFormField(form, labelText, type, id, isRequired) {
+				const fieldContainer = document.createElement('div')
+				fieldContainer.className = 'form-field'
+				fieldContainer.style.marginBottom = '10px'
+
+				const label = document.createElement('label')
+				label.textContent = labelText
+				label.htmlFor = id
+
+				if (isRequired) {
+					label.appendChild(createRequiredMark())
+				}
+
+				fieldContainer.appendChild(label)
+
+				if (type === 'textarea') {
+					const textarea = document.createElement('textarea')
+					textarea.id = id
+					textarea.name = id
+					textarea.rows = 3
+					textarea.cols = 30
+					if (isRequired) textarea.required = true
+					fieldContainer.appendChild(textarea)
+				} else {
+					const input = document.createElement('input')
+					input.type = type
+					input.id = id
+					input.name = id
+					if (isRequired) input.required = true
+					fieldContainer.appendChild(input)
+				}
+
+				const errorMsg = document.createElement('span')
+				errorMsg.id = `${id}Error`
+				errorMsg.style.color = 'red'
+				errorMsg.style.marginLeft = '10px'
+				fieldContainer.appendChild(errorMsg)
+
+				form.appendChild(fieldContainer)
+			}
+
+			function createRadioButton(name, labelText, value) {
+				const radio = document.createElement('input')
+				radio.type = 'radio'
+				radio.name = name
+				radio.value = value
+				radio.id = value
+				return radio
+			}
+
+			function createCheckbox(name, labelText, value) {
+				const checkbox = document.createElement('input')
+				checkbox.type = 'checkbox'
+				checkbox.name = name
+				checkbox.value = value
+				checkbox.id = value
+				return checkbox
+			}
+
+			function startTimer() {
+				function updateTime() {
+					const now = new Date()
+					const hours = now.getHours().toString().padStart(2, '0')
+					const minutes = now.getMinutes().toString().padStart(2, '0')
+					const seconds = now.getSeconds().toString().padStart(2, '0')
+					document.getElementById('timer').textContent =
+						`Time:${hours}:${minutes}:${seconds}`
+				}
+
+				updateTime()
+				setInterval(updateTime, 1000)
+			}
+
+			function validateForm(event) {
+				event.preventDefault()
+				let isValid = true
+
+				const form = document.getElementById('validationForm')
+				const name = form.name
+				const address = form.address
+				const zipcode = form.zipcode
+				const country = form.country
+				const genderElements = form.gender
+				const preferenceElements = document.querySelectorAll(
+					'input[name="preferences"]',
+				)
+				const phone = form.phone
+				const email = form.email
+				const password = form.password
+				const verifyPassword = form.verifyPassword
+				const pan = document.getElementById('pan')
+
+				const errorElements = document.querySelectorAll('[id$="Error"]')
+				errorElements.forEach((element) => {
+					element.textContent = ''
+				})
+
+				if (!name.value.trim()) {
+					document.getElementById('nameError').textContent =
+						'Please enter your name!'
+					name.focus()
+					isValid = false
+				} else if (name.value.length > 15) {
+					document.getElementById('nameError').textContent =
+						'Name should not exceed 15 characters!'
+					name.focus()
+					isValid = false
+				}
+
+				if (!zipcode.value.trim()) {
+					document.getElementById('zipcodeError').textContent =
+						'Zip code is required!'
+					if (isValid) zipcode.focus()
+					isValid = false
+				} else if (!/^\d+$/.test(zipcode.value)) {
+					document.getElementById('zipcodeError').textContent =
+						'Zip code should be numeric!'
+					if (isValid) zipcode.focus()
+					isValid = false
+				}
+
+				if (!country.value) {
+					document.getElementById('countryError').textContent =
+						'Please select a country!'
+					if (isValid) country.focus()
+					isValid = false
+				}
+
+				let genderSelected = false
+				for (let i = 0; i < genderElements.length; i++) {
+					if (genderElements[i].checked) {
+						genderSelected = true
+						break
+					}
+				}
+				if (!genderSelected) {
+					const genderError = document.createElement('span')
+					genderError.id = 'genderError'
+					genderError.textContent = 'Please select a gender!'
+					genderError.style.color = 'red'
+					genderElements[0].parentNode.insertBefore(
+						genderError,
+						genderElements[0].nextSibling,
+					)
+					isValid = false
+				}
+
+				let preferencesSelected = false
+				preferenceElements.forEach((element) => {
+					if (element.checked) {
+						preferencesSelected = true
+					}
+				})
+				if (!preferencesSelected) {
+					const preferencesError = document.createElement('span')
+					preferencesError.id = 'preferencesError'
+					preferencesError.textContent =
+						'Please select at least one preference!'
+					preferencesError.style.color = 'red'
+					preferenceElements[0].parentNode.insertBefore(
+						preferencesError,
+						preferenceElements[0].nextSibling,
+					)
+					isValid = false
+				}
+
+				if (!phone.value.trim()) {
+					document.getElementById('phoneError').textContent =
+						'Phone number is required!'
+					if (isValid) phone.focus()
+					isValid = false
+				} else if (!/^\d+$/.test(phone.value)) {
+					document.getElementById('phoneError').textContent =
+						'Phone number should be numeric!'
+					if (isValid) phone.focus()
+					isValid = false
+				} else if (phone.value.length !== 10) {
+					document.getElementById('phoneError').textContent =
+						'Phone number should be 10 digits!'
+					if (isValid) phone.focus()
+					isValid = false
+				}
+
+				if (!email.value.trim()) {
+					document.getElementById('emailError').textContent =
+						'Email is required!'
+					if (isValid) email.focus()
+					isValid = false
+				} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+					document.getElementById('emailError').textContent =
+						'Please enter a valid email address!'
+					if (isValid) email.focus()
+					isValid = false
+				}
+
+				if (!password.value) {
+					document.getElementById('passwordError').textContent =
+						'Password is required!'
+					if (isValid) password.focus()
+					isValid = false
+				} else if (
+					password.value.length < 8 ||
+					password.value.length > 15
+				) {
+					document.getElementById('passwordError').textContent =
+						'Password should be 8-15 characters!'
+					if (isValid) password.focus()
+					isValid = false
+				} else if (
+					!/(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*])/.test(
+						password.value,
+					)
+				) {
+					document.getElementById('passwordError').textContent =
+						'Password must contain a number, letter, and special character!'
+					if (isValid) password.focus()
+					isValid = false
+				}
+
+				if (password.value !== verifyPassword.value) {
+					document.getElementById('verifyPasswordError').textContent =
+						'Passwords do not match!'
+					if (isValid) verifyPassword.focus()
+					isValid = false
+				}
+
+				if (
+					pan.value &&
+					!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan.value)
+				) {
+					const panError = document.createElement('span')
+					panError.id = 'panError'
+					panError.textContent =
+						'PAN should be 10 characters (5 letters, 4 numbers, 1 letter)!'
+					panError.style.color = 'red'
+					pan.parentNode.appendChild(document.createElement('br'))
+					pan.parentNode.appendChild(panError)
+					if (isValid) pan.focus()
+					isValid = false
+				}
+
+				if (isValid) {
+					printFormContent()
+				}
+			}
+
+			function printFormContent() {
+				const form = document.getElementById('validationForm')
+				let content = 'Form Content:\n\n'
+
+				for (let i = 0; i < form.elements.length; i++) {
+					const element = form.elements[i]
+
+					if (
+						element.type === 'submit' ||
+						element.type === 'reset' ||
+						element.type === 'button'
+					) {
+						continue
+					}
+
+					if (
+						element.type === 'radio' ||
+						element.type === 'checkbox'
+					) {
+						if (element.checked) {
+							content += `${element.name}: ${element.value}\n`
+						}
+					} else if (element.name && element.value) {
+						content += `${element.name}: ${element.value}\n`
+					}
+				}
+
+				content += '\nUsing getElementsByName:\n'
+
+				const genderElements = document.getElementsByName('gender')
+				let selectedGender = ''
+				for (let i = 0; i < genderElements.length; i++) {
+					if (genderElements[i].checked) {
+						selectedGender = genderElements[i].value
+						break
+					}
+				}
+				content += `Gender: ${selectedGender}\n`
+
+				const countryElement = document.getElementsByName('country')[0]
+				content += `Country: ${countryElement.value}\n`
+
+				const preferenceElements =
+					document.getElementsByName('preferences')
+				let selectedPreferences = []
+				for (let i = 0; i < preferenceElements.length; i++) {
+					if (preferenceElements[i].checked) {
+						selectedPreferences.push(preferenceElements[i].value)
+					}
+				}
+				content += `Preferences: ${selectedPreferences.join(', ')}\n`
+
+				alert(content)
+			}
+		</script>
+	</body>
+</html>

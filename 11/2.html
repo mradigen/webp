@@ -1,0 +1,142 @@
+<html>
+	<body>
+		<script>
+			function createStopwatch() {
+				const container = document.createElement('div')
+				container.style.margin = '20px 0'
+				container.style.textAlign = 'center'
+				const display = document.createElement('div')
+				display.textContent = '00:00:00'
+				display.style.fontSize = '2em'
+				display.style.fontFamily = 'monospace'
+				display.style.margin = '10px 0'
+				const startButton = document.createElement('button')
+				startButton.textContent = 'Start'
+				startButton.style.margin = '0 5px'
+				startButton.style.padding = '8px 16px'
+				const stopButton = document.createElement('button')
+				stopButton.textContent = 'Stop'
+				stopButton.style.margin = '0 5px'
+				stopButton.style.padding = '8px 16px'
+				const resetButton = document.createElement('button')
+				resetButton.textContent = 'Reset'
+				resetButton.style.margin = '0 5px'
+				resetButton.style.padding = '8px 16px'
+				let startTime
+				let elapsedTime = 0
+				let timerInterval
+				function formatTime(timeInMilliseconds) {
+					const date = new Date(timeInMilliseconds)
+					const hours = date.getUTCHours().toString().padStart(2, '0')
+					const minutes = date
+						.getUTCMinutes()
+						.toString()
+						.padStart(2, '0')
+					const seconds = date
+						.getUTCSeconds()
+						.toString()
+						.padStart(2, '0')
+					return `${hours}:${minutes}:${seconds}`
+				}
+				function startTimer() {
+					startTime = Date.now() - elapsedTime
+					timerInterval = setInterval(function () {
+						elapsedTime = Date.now() - startTime
+						display.textContent = formatTime(elapsedTime)
+					}, 10)
+					startButton.disabled = true
+					stopButton.disabled = false
+				}
+				function stopTimer() {
+					clearInterval(timerInterval)
+					startButton.disabled = false
+					stopButton.disabled = true
+				}
+				function resetTimer() {
+					clearInterval(timerInterval)
+					display.textContent = '00:00:00'
+					elapsedTime = 0
+					startButton.disabled = false
+					stopButton.disabled = false
+				}
+				startButton.addEventListener('click', startTimer)
+				stopButton.addEventListener('click', stopTimer)
+				resetButton.addEventListener('click', resetTimer)
+				container.appendChild(display)
+				container.appendChild(startButton)
+				container.appendChild(stopButton)
+				container.appendChild(resetButton)
+				document.body.appendChild(container)
+			}
+			function createAgeCalculator() {
+				const container = document.createElement('div')
+				container.style.margin = '20px 0'
+				const label = document.createElement('label')
+				label.textContent = 'Date of Birth: '
+				label.style.marginRight = '10px'
+				const dobInput = document.createElement('input')
+				dobInput.type = 'date'
+				dobInput.style.padding = '8px'
+				const ageDisplay = document.createElement('div')
+				ageDisplay.style.marginTop = '10px'
+				ageDisplay.style.padding = '10px'
+				ageDisplay.style.border = '1px solid #ccc'
+				ageDisplay.style.display = 'inline-block'
+				ageDisplay.textContent = 'Hover over the date to see your age'
+				dobInput.addEventListener('mouseover', function () {
+					if (dobInput.value) {
+						const dob = new Date(dobInput.value)
+						const today = new Date()
+						let age = today.getFullYear() - dob.getFullYear()
+						const monthDiff = today.getMonth() - dob.getMonth()
+						if (
+							monthDiff < 0 ||
+							(monthDiff === 0 && today.getDate() < dob.getDate())
+						) {
+							age--
+						}
+						ageDisplay.textContent = `Your age is ${age} years`
+					} else {
+						ageDisplay.textContent = 'Please select a date first'
+					}
+				})
+				container.appendChild(label)
+				container.appendChild(dobInput)
+				container.appendChild(ageDisplay)
+				document.body.appendChild(container)
+			}
+			function createCharacterCounter() {
+				const container = document.createElement('div')
+				container.style.margin = '20px 0'
+				const label = document.createElement('label')
+				label.textContent = 'Type something: '
+				label.style.display = 'block'
+				label.style.marginBottom = '5px'
+				const textarea = document.createElement('textarea')
+				textarea.rows = 5
+				textarea.cols = 40
+				textarea.style.padding = '8px'
+				textarea.style.marginBottom = '5px'
+				const counter = document.createElement('div')
+				counter.textContent = '0 characters'
+				counter.style.fontSize = '0.9em'
+				counter.style.color = '#666'
+				textarea.addEventListener('input', function () {
+					const count = this.value.length
+					counter.textContent = `${count} character${count !== 1 ? 's' : ''}`
+				})
+				container.appendChild(label)
+				container.appendChild(textarea)
+				container.appendChild(counter)
+				document.body.appendChild(container)
+			}
+			window.onload = function () {
+				createStopwatch()
+				document.body.appendChild(document.createElement('hr'))
+				createAgeCalculator()
+				document.body.appendChild(document.createElement('hr'))
+				createCharacterCounter()
+			}
+		</script>
+	</body>
+</html>

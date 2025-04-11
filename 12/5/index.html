@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>23BCE5047</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 20px;
+			}
+
+			.container {
+				position: relative;
+				width: 600px;
+				height: 400px;
+				margin: 50px auto;
+				border: 1px solid #ccc;
+				background-color: #f9f9f9;
+			}
+
+			.element {
+				position: absolute;
+				width: 200px;
+				height: 200px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: white;
+				font-weight: bold;
+				font-size: 24px;
+				border: 3px solid black;
+				transition: all 0.3s ease;
+				cursor: move;
+			}
+
+			#element1 {
+				background-color: rgba(255, 0, 0, 0.7);
+				top: 50px;
+				left: 100px;
+				z-index: 1;
+			}
+
+			#element2 {
+				background-color: rgba(0, 128, 0, 0.7);
+				top: 100px;
+				left: 200px;
+				z-index: 2;
+			}
+
+			#element3 {
+				background-color: rgba(0, 0, 255, 0.7);
+				top: 150px;
+				left: 300px;
+				z-index: 3;
+			}
+
+			.controls {
+				margin: 20px auto;
+				width: 600px;
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			}
+
+			.element-controls {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 10px;
+				border: 1px solid #ddd;
+				border-radius: 5px;
+			}
+
+			.element-info {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.color-box {
+				width: 20px;
+				height: 20px;
+				border: 1px solid black;
+			}
+
+			.buttons {
+				display: flex;
+				gap: 10px;
+			}
+
+			button {
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+
+			.z-index-value {
+				font-weight: bold;
+				min-width: 30px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 style="text-align: center">Z-Index Manipulation</h1>
+
+		<div class="container" id="container">
+			<div class="element" id="element1">Element 1</div>
+			<div class="element" id="element2">Element 2</div>
+			<div class="element" id="element3">Element 3</div>
+		</div>
+
+		<div class="controls">
+			<h2>Control Panel</h2>
+
+			<div class="element-controls">
+				<div class="element-info">
+					<div
+						class="color-box"
+						style="background-color: rgba(255, 0, 0, 0.7)"
+					></div>
+					<span>Element 1</span>
+					<span
+						>Z-Index:
+						<span id="z-index1" class="z-index-value">1</span></span
+					>
+				</div>
+				<div class="buttons">
+					<button onclick="decreaseZIndex('element1')">-</button>
+					<button onclick="increaseZIndex('element1')">+</button>
+					<button onclick="bringToFront('element1')">
+						Bring to Front
+					</button>
+					<button onclick="sendToBack('element1')">
+						Send to Back
+					</button>
+				</div>
+			</div>
+
+			<div class="element-controls">
+				<div class="element-info">
+					<div
+						class="color-box"
+						style="background-color: rgba(0, 128, 0, 0.7)"
+					></div>
+					<span>Element 2</span>
+					<span
+						>Z-Index:
+						<span id="z-index2" class="z-index-value">2</span></span
+					>
+				</div>
+				<div class="buttons">
+					<button onclick="decreaseZIndex('element2')">-</button>
+					<button onclick="increaseZIndex('element2')">+</button>
+					<button onclick="bringToFront('element2')">
+						Bring to Front
+					</button>
+					<button onclick="sendToBack('element2')">
+						Send to Back
+					</button>
+				</div>
+			</div>
+
+			<div class="element-controls">
+				<div class="element-info">
+					<div
+						class="color-box"
+						style="background-color: rgba(0, 0, 255, 0.7)"
+					></div>
+					<span>Element 3</span>
+					<span
+						>Z-Index:
+						<span id="z-index3" class="z-index-value">3</span></span
+					>
+				</div>
+				<div class="buttons">
+					<button onclick="decreaseZIndex('element3')">-</button>
+					<button onclick="increaseZIndex('element3')">+</button>
+					<button onclick="bringToFront('element3')">
+						Bring to Front
+					</button>
+					<button onclick="sendToBack('element3')">
+						Send to Back
+					</button>
+				</div>
+			</div>
+
+			<div class="element-controls">
+				<button onclick="resetZIndices()">Reset All Z-Indices</button>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>

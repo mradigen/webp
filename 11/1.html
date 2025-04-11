@@ -1,0 +1,125 @@
+<html>
+	<body>
+		<script>
+			function createDynamicTable() {
+				const table = document.createElement('table')
+				table.style.border = '1px solid black'
+				table.style.borderCollapse = 'collapse'
+				for (let i = 0; i < 3; i++) {
+					const row = document.createElement('tr')
+					for (let j = 0; j < 3; j++) {
+						const cell = document.createElement('td')
+						cell.textContent = `Cell ${i + 1}-${j + 1}`
+						cell.style.border = '1px solid black'
+						cell.style.padding = '8px'
+						row.appendChild(cell)
+					}
+					table.appendChild(row)
+				}
+				document.body.appendChild(table)
+			}
+			function createColorChangeButton() {
+				const button = document.createElement('button')
+				button.textContent = 'Hover Me'
+				button.style.backgroundColor = 'red'
+				button.style.color = 'white'
+				button.style.padding = '10px'
+				button.style.margin = '10px 0'
+				button.style.border = 'none'
+				button.style.borderRadius = '4px'
+				button.addEventListener('mouseover', function () {
+					this.style.backgroundColor = 'green'
+				})
+				button.addEventListener('mouseout', function () {
+					this.style.backgroundColor = 'red'
+				})
+				document.body.appendChild(button)
+			}
+			function createColorChangeTextbox() {
+				const textbox = document.createElement('input')
+				textbox.type = 'text'
+				textbox.placeholder = 'Focus on me'
+				textbox.style.backgroundColor = 'green'
+				textbox.style.color = 'white'
+				textbox.style.padding = '8px'
+				textbox.style.margin = '10px 0'
+				textbox.style.display = 'block'
+				textbox.addEventListener('focus', function () {
+					this.style.backgroundColor = 'yellow'
+					this.style.color = 'black'
+				})
+				textbox.addEventListener('blur', function () {
+					this.style.backgroundColor = 'green'
+					this.style.color = 'white'
+				})
+				textbox.addEventListener('change', function () {
+					alert(`Hello, ${this.value}!`)
+				})
+				document.body.appendChild(textbox)
+			}
+			function createListAdder() {
+				const container = document.createElement('div')
+				container.style.margin = '20px 0'
+				const input = document.createElement('input')
+				input.type = 'text'
+				input.placeholder = 'Enter item text'
+				input.style.padding = '8px'
+				input.style.marginRight = '10px'
+				const button = document.createElement('button')
+				button.textContent = 'Add to List (Double Click)'
+				button.style.padding = '8px'
+				const list = document.createElement('ul')
+				list.style.marginTop = '10px'
+				button.addEventListener('dblclick', function () {
+					if (input.value.trim() !== '') {
+						const listItem = document.createElement('li')
+						listItem.textContent = input.value
+						list.appendChild(listItem)
+						input.value = ''
+					}
+				})
+				container.appendChild(input)
+				container.appendChild(button)
+				container.appendChild(list)
+				document.body.appendChild(container)
+			}
+			function createKeyPressCounter() {
+				const container = document.createElement('div')
+				container.style.margin = '20px 0'
+				const inputField = document.createElement('input')
+				inputField.type = 'text'
+				inputField.placeholder = 'Type here'
+				inputField.style.padding = '8px'
+				inputField.style.marginRight = '10px'
+				const counterField = document.createElement('input')
+				counterField.type = 'text'
+				counterField.readOnly = true
+				counterField.value = '0'
+				counterField.style.padding = '8px'
+				let count = 0
+				inputField.addEventListener('keydown', function () {
+					count++
+					counterField.value = count.toString()
+				})
+				container.appendChild(document.createTextNode('Input: '))
+				container.appendChild(inputField)
+				container.appendChild(
+					document.createTextNode(' Key Press Count: '),
+				)
+				container.appendChild(counterField)
+				document.body.appendChild(container)
+			}
+			window.onload = function () {
+				createDynamicTable()
+				document.body.appendChild(document.createElement('hr'))
+				createColorChangeButton()
+				document.body.appendChild(document.createElement('hr'))
+				createColorChangeTextbox()
+				document.body.appendChild(document.createElement('hr'))
+				createListAdder()
+				document.body.appendChild(document.createElement('hr'))
+				createKeyPressCounter()
+			}
+		</script>
+	</body>
+</html>
